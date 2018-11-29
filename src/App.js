@@ -3,64 +3,68 @@ import Square from './Square';
 import './App.css';
 
 class App extends Component {
-  state = {
-    squares: [],
-    isRedNext:false
+  constructor() {
+    super()
+
+    this.state = { fullSquares: [[],[],[],[]], isRedNext: false };
+    
   }
 
-    handleClick = () => {
-      if(this.state.isRedNext){
-        this.setState({squares:this.state.squares.concat(['blue'])})
-        this.setState({isRedNext:!this.state.isRedNext})
-      }
-      else {
-        this.setState({squares:this.state.squares.concat(['red'])})
-        this.setState({isRedNext:!this.state.isRedNext})
-      }
-    }
+  handleClick = (buttonNum) => {
+    console.log(`Clicked ${buttonNum}`)
+    const tempGameBoard = this.state.fullSquares.map((row) => row );
 
-    renderSquare = (i) => (
-      <Square color={this.state.squares[i]}/>
-    )
+    this.state.isRedNext ? tempGameBoard[buttonNum].push("blue") : tempGameBoard[buttonNum].push("red");
+    this.setState({fullSquares: tempGameBoard})
+    this.setState({isRedNext:!this.state.isRedNext})
+  }
+
+  
+
 
 
   render() {
-    return (
-      <div className="board">
-
-
+    
+    return <div className="board">
         <div className="row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-          {this.renderSquare(3)}
+        <Square color={this.state.fullSquares[0][3]} />
+        <Square color={this.state.fullSquares[1][3]} />
+        <Square color={this.state.fullSquares[2][3]} />
+        <Square color={this.state.fullSquares[3][3]} />
         </div>
         <div className="row">
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
+        <Square color={this.state.fullSquares[0][2]} />
+        <Square color={this.state.fullSquares[1][2]} />
+        <Square color={this.state.fullSquares[2][2]} />
+        <Square color={this.state.fullSquares[3][2]} />
         </div>
         <div className="row">
-          {this.renderSquare(8)}
-          {this.renderSquare(9)}
-          {this.renderSquare(10)}
-          {this.renderSquare(11)}
+        <Square color={this.state.fullSquares[0][1]} />
+        <Square color={this.state.fullSquares[1][1]} />
+        <Square color={this.state.fullSquares[2][1]} />
+        <Square color={this.state.fullSquares[3][1]} />
         </div>
         <div className="row">
-          {this.renderSquare(12)}
-          {this.renderSquare(13)}
-          {this.renderSquare(14)}
-          {this.renderSquare(15)}
+          <Square color={this.state.fullSquares[0][0]} />
+          <Square color={this.state.fullSquares[1][0]} />
+          <Square color={this.state.fullSquares[2][0]} />
+          <Square color={this.state.fullSquares[3][0]} />
         </div>
         <div className="row">
-        <button className="move" onClick={this.handleClick}>Here</button>
-        <button className="move" onClick={this.handleClick}>Here</button>
-        <button className="move" onClick={this.handleClick}>Here</button>
-        <button className="move" onClick={this.handleClick}>Here</button>
+          <button className="move" onClick={() => this.handleClick(0)}>
+            Here
+          </button>
+          <button className="move" onClick={() => this.handleClick(1)}>
+            Here
+          </button>
+          <button className="move" onClick={() => this.handleClick(2)}>
+            Here
+          </button>
+          <button className="move" onClick={() => this.handleClick(3)}>
+            Here
+          </button>
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 
